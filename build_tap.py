@@ -12,7 +12,6 @@ border stripes and attribute colours are visible during loading (as in the origi
 
 import hashlib
 import struct
-import shutil
 import sys
 import os
 
@@ -20,7 +19,6 @@ MANIC_TAP = "MANIC.TAP"
 SPRINT_BIN = "mm_sprint.bin"
 OUTPUT_TAP = "mm_sprint.tap"
 OUTPUT_IPS = "mm_sprint.ips"
-DESKTOP = "/media/sf_Desktop/"
 
 EXPECTED_BIN_SIZE = 32771
 LOAD_ADDR = 0x7FFD
@@ -231,14 +229,6 @@ def main():
     ips = make_ips_patch(manic_data, tap)
     open(OUTPUT_IPS, "wb").write(ips)
     print(f"Created {OUTPUT_IPS} ({len(ips)} bytes)")
-
-    # Copy to shared desktop
-    if os.path.isdir(DESKTOP):
-        shutil.copy2(OUTPUT_TAP, DESKTOP)
-        shutil.copy2(OUTPUT_IPS, DESKTOP)
-        print(f"Copied to {DESKTOP}")
-    else:
-        print(f"Note: {DESKTOP} not found, skipping copy")
 
 
 if __name__ == "__main__":
